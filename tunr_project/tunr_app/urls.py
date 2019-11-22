@@ -4,7 +4,7 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(views.SessionView)
+router.register('sessions', views.SessionView)
 
 urlpatterns = [
     path('', include(router.urls))
