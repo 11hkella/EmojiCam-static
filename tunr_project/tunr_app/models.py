@@ -4,7 +4,7 @@ from django.db import models
 class Session(models.Model):
     user_picture = models.CharField(max_length=255, default="n/a")
     emoji_image = models.CharField(max_length=255, default='n/a')
-    percent_match = models.IntegerField()
+    percent_match = models.IntegerField(default=0)
     target_emo = models.CharField(max_length=100, default='n/a')
 
     def __str__(self):
