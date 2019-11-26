@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-
-// import nodejs bindings to native tensorflow,
-// not required, but will speed up things drastically (python required)
-//import '@tensorflow/tfjs-node';
+import './EmojiCam.css'
 
 // implements nodejs wrappers for HTMLCanvasElement, HTMLImageElement, ImageData
 import * as canvas from 'canvas';
-
 import * as faceapi from 'face-api.js';
 
 // patch nodejs environment, we need to provide an implementation of
@@ -14,6 +10,7 @@ import * as faceapi from 'face-api.js';
 // of ImageData is required, in case you want to use the MTCNN
 const { Canvas, Image, ImageData } = canvas
 faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
+
 
 export default class EmojiCam extends Component {
     state = {
@@ -40,31 +37,32 @@ export default class EmojiCam extends Component {
         }
         this.setState({ video, displaySize })
         this.loadAssets()
+        this.getMedia()
     }
 
     loadImages = new Promise((resolve, reject) => {
         try {
             //happy
             const happyImg = new Image()
-            happyImg.src = "./images/cool.png"
+            happyImg.src = '/images/happy.png'
             // neutral
             const neutralImg = new Image()
-            neutralImg.src = "./images/neutral.png"
+            neutralImg.src = "/images/neutral.png"
             //angry
             const angryImg = new Image()
-            angryImg.src = "./images/angry.png"
+            angryImg.src = "/images/angry.png"
             //disgust
             const disgustImg = new Image()
-            disgustImg.src = "./images/disgust.png"
+            disgustImg.src = "/images/disgust.png"
             // fear
             const fearImg = new Image()
-            fearImg.src = "./images/fear.png"
+            fearImg.src = "/images/fear.png"
             //sad
             const sadImg = new Image()
-            sadImg.src = "./images/crying.png"
+            sadImg.src = "/images/crying.png"
             //surprise
             const surpriseImg = new Image()
-            surpriseImg.src = "./images/surprised.png"
+            surpriseImg.src = "/images/surprised.png"
 
             this.setState({
                 happyImg,
@@ -89,11 +87,22 @@ export default class EmojiCam extends Component {
             faceapi.nets.faceExpressionNet.loadFromUri('/models'),
             this.loadImages
         ]).then(() => {
-            console.log('models all loaded')
+            console.log('models and images all loaded')
         })
     }
 
+    getMedia = async () => {
+        let stream = null;
 
+        try {
+            stream = await navigator.mediaDevices.getUserMedia(
+                { video: true })
+            this.state.video.srcObject = stream
+        }
+        catch (err) {
+            console.error(err)
+        }
+    }
 
 
     render() {
