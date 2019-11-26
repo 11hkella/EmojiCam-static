@@ -1,25 +1,12 @@
 import React, { Component } from 'react'
-import './EmojiCam.css'
-
-// implements nodejs wrappers for HTMLCanvasElement, HTMLImageElement, ImageData
-import * as canvas from 'canvas';
+import Webcam from 'react-webcam'
 import * as faceapi from 'face-api.js';
 
-// patch nodejs environment, we need to provide an implementation of
-// HTMLCanvasElement and HTMLImageElement, additionally an implementation
-// of ImageData is required, in case you want to use the MTCNN
-const { Canvas, Image, ImageData } = canvas
-faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
+import './EmojiCam.css'
 
 
 export default class EmojiCam extends Component {
     state = {
-        video: null,
-        detections: [],
-        canvas: null,
-        context: null,
-        displaySize: {},
-        faceDetectionOptions: new faceapi.TinyFaceDetectorOptions({ inputSize: 320 }),
         happyImg: null,
         neutralImg: null,
         angryImg: null,
@@ -27,24 +14,26 @@ export default class EmojiCam extends Component {
         fearImg: null,
         sadImg: null,
         surpriseImg: null,
+        loaded: false,
     }
 
-    componentDidMount() {
-        const video = document.getElementById('video')
-        const displaySize = {
-            width: video.width,
-            height: video.height
-        }
-        this.setState({ video, displaySize })
-        this.loadAssets()
-        this.getMedia()
+    async componentDidMount() {
+        Promise.all([
+            faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+            faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
+            faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+            this.loadImages()
+        ]).then(() => {
+            console.log('models and images all loaded')
+            this.setState({ loaded: true })
+        })
     }
 
-    loadImages = new Promise((resolve, reject) => {
+    loadImages = () => new Promise((resolve, reject) => {
         try {
             //happy
             const happyImg = new Image()
-            happyImg.src = '/images/happy.png'
+            happyImg.src = '/images/cool.png'
             // neutral
             const neutralImg = new Image()
             neutralImg.src = "/images/neutral.png"
@@ -75,40 +64,102 @@ export default class EmojiCam extends Component {
             })
             resolve('Images loaded');
         }
-        catch {
+        catch (error) {
+            console.log('Image cannot load')
+            console.log(error)
             reject('Image cannot load')
         }
     })
 
-    loadAssets = () => {
-        Promise.all([
-            faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-            faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-            faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-            this.loadImages
-        ]).then(() => {
-            console.log('models and images all loaded')
-        })
+    mediaHandler = () => {
+        const videoEl = document.getElementById('video')
+        const displaySize = {
+            width: videoEl.width,
+            height: videoEl.height,
+        }
+        const canvas = faceapi.createCanvas(displaySize)
+        canvas.id = 'videoCanvas'
+        document.getElementById('videoContainer').append(canvas)
+        faceapi.matchDimensions(canvas, displaySize)
+
+        setInterval(async () => {
+            const faceDetectionOptions = new faceapi.TinyFaceDetectorOptions({ inputSize: 320 })
+            const detections = await faceapi.detectAllFaces(videoEl, faceDetectionOptions)
+                .withFaceExpressions()
+
+
+            if (detections) {
+                const resizedDetections = faceapi.resizeResults(detections, displaySize)
+
+                // erase board then draw new one
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+
+                this.drawEmoji(resizedDetections)
+            }
+        }, 100)
     }
 
-    getMedia = async () => {
-        let stream = null;
+    drawEmoji = (detections) => {
+        const context = document.getElementById('videoCanvas').getContext('2d')
+        for (let i = 0; i < detections.length; i++) {
+            // get position and size
+            const x = detections[i].detection._box._x
+            const y = detections[i].detection._box._y
+            const width = detections[i].detection._box._width
+            const height = detections[i].detection._box.height
 
-        try {
-            stream = await navigator.mediaDevices.getUserMedia(
-                { video: true })
-            this.state.video.srcObject = stream
-        }
-        catch (err) {
-            console.error(err)
+            //get dominant emotion
+            let emoSort = ['']
+            const emotions = detections[i].expressions
+            if (emotions) {
+                emoSort = Object.keys(emotions)
+                    .sort(function (a, b) { return emotions[b] - emotions[a] })
+                // console.log(emoSort)
+            }
+            const dominantEmo = emoSort[0]
+
+            // draw corrosponding emotion pic
+            if (dominantEmo === 'happy') {
+                context.drawImage(this.state.happyImg, x, y, width, height)
+            } else if (dominantEmo === 'neutral') {
+                context.drawImage(this.state.neutralImg, x, y, width, height)
+            } else if (dominantEmo === 'angry') {
+                context.drawImage(this.state.angryImg, x, y, width, height)
+            } else if (dominantEmo === 'surprised') {
+                context.drawImage(this.state.surpriseImg, x, y, width, height)
+            } else if (dominantEmo === 'sad') {
+                context.drawImage(this.state.sadImg, x, y, width, height)
+            } else if (dominantEmo === 'disgusted') {
+                context.drawImage(this.state.disgustImg, x, y, width, height)
+            } else if (dominantEmo === 'fearful') {
+                context.drawImage(this.state.fearImg, x, y, width, height)
+            }
         }
     }
 
 
     render() {
+        const videoConstraints = {
+            width: window.screen.width * .7,
+            height: window.screen.width / 2,
+            facingMode: 'user'
+        };
+
         return (
-            <div className='emoji-cam' id='emojiCam' >
-                <video id='video' autoPlay muted></video>
+            <div className='emoji-cam' id='videoContainer'>
+                {
+                    this.state.loaded ?
+                        <Webcam
+                            id='video'
+                            width={videoConstraints.width}
+                            height={videoConstraints.height}
+                            audio={false}
+                            videoConstraints={videoConstraints}
+                            onUserMedia={this.mediaHandler}
+                        ></Webcam>
+                        :
+                        null
+                }
             </div>
         )
     }
