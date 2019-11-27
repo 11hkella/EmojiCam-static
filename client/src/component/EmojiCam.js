@@ -65,8 +65,7 @@ export default class EmojiCam extends Component {
             resolve('Images loaded');
         }
         catch (error) {
-            console.log('Image cannot load')
-            console.log(error)
+            console.error(error)
             reject('Image cannot load')
         }
     })
@@ -140,26 +139,24 @@ export default class EmojiCam extends Component {
 
     render() {
         const videoConstraints = {
-            width: window.screen.width * .7,
-            height: window.screen.width / 2,
+            width: window.screen.width * .6,
+            height: window.screen.width / 2.5,
             facingMode: 'user'
         };
 
         return (
             <div className='emoji-cam' id='videoContainer'>
-                {
-                    this.state.loaded ?
-                        <Webcam
-                            id='video'
-                            width={videoConstraints.width}
-                            height={videoConstraints.height}
-                            audio={false}
-                            videoConstraints={videoConstraints}
-                            onUserMedia={this.mediaHandler}
-                        ></Webcam>
-                        :
-                        null
-                }
+                {this.state.loaded ?
+                    <Webcam
+                        id='video'
+                        width={videoConstraints.width}
+                        height={videoConstraints.height}
+                        audio={false}
+                        videoConstraints={videoConstraints}
+                        onUserMedia={this.mediaHandler}
+                    ></Webcam>
+                    :
+                    null}
             </div>
         )
     }

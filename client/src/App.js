@@ -1,15 +1,26 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+import CamPage from './component/CamPage.js'
+import Landing from './component/Landing.js'
 
 import './App.css';
 
-import EmojiCam from './component/EmojiCam.js'
 
-function App() {
-  return (
-    <div className="App">
-      <EmojiCam />
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/video' component={CamPage} />
+          </Switch>
+        </Router>
+
+      </div>
+    )
+  }
 }
 
 export default App;
