@@ -23,3 +23,11 @@ class ImageSet(models.Model):
 
     def __str__(self):
         return self.happy
+
+class Rate(models.Model):
+    stars = models.PositiveSmallIntegerField()
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.stars
+

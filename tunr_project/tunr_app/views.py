@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 
-from .serializers import SessionSerializer, ImageSetSerializer
+from .serializers import SessionSerializer, ImageSetSerializer, RateSerializer
 
-from .models import Session, ImageSet
+from .models import Session, ImageSet, Rate
 
 
 class SessionView(viewsets.ModelViewSet):
@@ -13,3 +13,8 @@ class SessionView(viewsets.ModelViewSet):
 class ImageSetView(viewsets.ModelViewSet):
     queryset = ImageSet.objects.all()
     serializer_class = ImageSetSerializer
+
+class RateView(viewsets.ModelViewSet):
+    queryset = Rate.objects.all()
+    serializer_class = RateSerializer
+
