@@ -4,8 +4,8 @@ from django.db import models
 # Create your models here.
 
 class Session(models.Model):
-    latitude = models.DecimalField(max_digits=19, decimal_places=10)
-    longitude = models.DecimalField(max_digits=19, decimal_places=10)
+    latitude = models.DecimalField(max_digits=19, decimal_places=10, default=0)
+    longitude = models.DecimalField(max_digits=19, decimal_places=10, default=0)
     timestamp = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -23,6 +23,7 @@ class ImageSet(models.Model):
 
     def __str__(self):
         return self.happy
+
 
 class Rate(models.Model):
     stars = models.PositiveSmallIntegerField()
