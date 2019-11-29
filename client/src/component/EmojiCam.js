@@ -139,8 +139,8 @@ export default class EmojiCam extends Component {
 
     render() {
         const videoConstraints = {
-            width: window.screen.width * .6,
-            height: window.screen.width / 2.5,
+            width: window.screen.width * .7,
+            height: window.screen.width / 2,
             facingMode: 'user'
         };
 

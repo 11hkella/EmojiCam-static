@@ -9,3 +9,12 @@ class Session(models.Model):
 
     def __str__(self):
         return self.user_picture
+
+class ImageSet(models.Model):
+    happy = models.CharField(max_length=255, default='/images/cool.png')
+    neutral = models.CharField(max_length=255, default='/images/neutral.png')
+    angry = models.CharField(max_length=255, default='/images/angry.png')
+    disgust = models.CharField(max_length=255, default='/images/disgust.png')
+    fear = models.CharField(max_length=255, default='/images/fear.png')
+    sad = models.CharField(max_length=255, default='/images/crying.png')
+    surprise = models.CharField(max_length=255, default='/images/surprised.png')
