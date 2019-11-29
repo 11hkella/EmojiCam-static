@@ -3,10 +3,12 @@ from rest_framework import serializers
 
 from .models import Session, ImageSet
 
+
 class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
-        fields = ('user_picture', 'emoji_image', 'percent_match', 'target_emo')
+        fields = ('latitude', 'longitude', 'timestamp')
+
 
 class ImageSetSerializer(serializers.ModelSerializer):
     class Meta:
