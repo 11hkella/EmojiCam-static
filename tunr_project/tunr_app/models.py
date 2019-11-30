@@ -26,7 +26,7 @@ class ImageSet(models.Model):
 
 
 class Rate(models.Model):
-    stars = models.PositiveSmallIntegerField()
+    stars = models.PositiveSmallIntegerField(default=5)
     comment = models.TextField()
 
     def __str__(self):

@@ -84,9 +84,9 @@ WSGI_APPLICATION = 'tunr_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'face_to_emoji',
-        'USER': 'admin_user',
-        'PASSWORD': 'project4',
+        'NAME': 'emoji_cam',
+        'USER': 'emojicamadmin',
+        'PASSWORD': '11hkella',
         'HOST': 'localhost',
     }
 }
