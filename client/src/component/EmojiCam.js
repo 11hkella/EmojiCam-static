@@ -17,6 +17,7 @@ export default class EmojiCam extends Component {
         loaded: false,
     }
 
+
     async componentDidMount() {
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -28,6 +29,7 @@ export default class EmojiCam extends Component {
             this.setState({ loaded: true })
         })
     }
+
 
     loadImages = () => new Promise((resolve, reject) => {
         try {
@@ -70,11 +72,12 @@ export default class EmojiCam extends Component {
         }
     })
 
+
     mediaHandler = () => {
         const videoEl = document.getElementById('video')
         const displaySize = {
-            width: videoEl.width,
-            height: videoEl.height,
+            width: videoEl.width + 200,
+            height: videoEl.height + 200,
         }
         const canvas = faceapi.createCanvas(displaySize)
         canvas.id = 'videoCanvas'
@@ -95,8 +98,9 @@ export default class EmojiCam extends Component {
 
                 this.drawEmoji(resizedDetections)
             }
-        }, 100)
+        }, 800)
     }
+
 
     drawEmoji = (detections) => {
         const context = document.getElementById('videoCanvas').getContext('2d')
@@ -140,7 +144,7 @@ export default class EmojiCam extends Component {
     render() {
         const videoConstraints = {
             width: window.screen.width * .7,
-            height: window.screen.width / 2,
+            height: window.screen.width / 2.2,
             facingMode: 'user'
         };
 

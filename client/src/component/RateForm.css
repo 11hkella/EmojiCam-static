@@ -1,0 +1,14 @@
+.rateform-container > textarea{
+    display: block;
+    width: 300px;
+    height: 70px;
+}
+
+.star-container img{
+    width: 30px;
+    height: 30px;
+    transition: all 70ms ease-in-out;
+}
+.star-container img:hover{
+    transform: scale(1.08, 1.08);
+}

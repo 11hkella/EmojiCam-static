@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import EmojiCam from './EmojiCam.js'
+import RateForm from './RateForm.js'
 
 import './CamPage.css'
 
@@ -16,10 +17,12 @@ export default class CamPage extends Component {
         sadPath: null,
         surprisePath: null,
     }
+
+
     async componentDidMount() {
         const imageSetObject = await axios.get('/api/v1/image_set')
         const imageSet = imageSetObject.data[0]
-        console.log(imageSet)
+        // console.log(imageSet)
         this.setState({
             happyPath: imageSet.happy,
             neutralPath: imageSet.neutral,
@@ -30,17 +33,25 @@ export default class CamPage extends Component {
             surprisePath: imageSet.surprise,
         })
     }
+
+
     render() {
         return (
             <div className='cam-page-container'>
-                <EmojiCam
-                    happyPath={this.state.happyPath}
-                    neutralPath={this.state.neutralPath}
-                    angryPath={this.state.angryPath}
-                    disgustPath={this.state.disgustPath}
-                    fearPath={this.state.fearPath}
-                    sadPath={this.state.sadPath}
-                    surprisePath={this.state.surprisePath} />
+                {/* <div className='camera-container'>
+                    <EmojiCam
+                        happyPath={this.state.happyPath}
+                        neutralPath={this.state.neutralPath}
+                        angryPath={this.state.angryPath}
+                        disgustPath={this.state.disgustPath}
+                        fearPath={this.state.fearPath}
+                        sadPath={this.state.sadPath}
+                        surprisePath={this.state.surprisePath} />
+                </div> */}
+
+                <div className='form-container'>
+                    <RateForm />
+                </div>
             </div>
         )
     }
