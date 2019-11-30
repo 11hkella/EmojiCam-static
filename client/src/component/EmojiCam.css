@@ -6,6 +6,12 @@
     align-items: center;
 }
 
+#videoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .emoji-cam video{
     border-radius: 5px;
     box-shadow: -2px -2px #0c0c0c4f;
