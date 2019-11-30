@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import axios from 'axios'
 
 import './RateForm.css'
 
@@ -30,8 +30,24 @@ export default class RateForm extends Component {
         ],
         starValue: 0,
         comment: '',
+        submitted: false,
     }
 
+
+    submitHandler = async () => {
+        try {
+            await axios.post('/api/v1/rate/',
+                {
+                    stars: this.state.starValue,
+                    comment: this.state.comment,
+                })
+            this.setState({ submitted: true })
+        }
+        catch (e) {
+            console.error("Unable to submit rating.")
+            console.error(e)
+        }
+    }
 
     handleChange = (e) => {
         const previousState = { ...this.state }
@@ -64,6 +80,10 @@ export default class RateForm extends Component {
     render() {
         return (
             <div className='rateform-container'>
+                {this.state.submitted ?
+                    <p>Form Submitted</p> :
+                    null
+                }
 
                 <div className='star-container'>
                     {this.state.stars.map((star, i) => {
@@ -80,7 +100,9 @@ export default class RateForm extends Component {
                     placeholder='Comments...'
                     name='comment' />
 
-                <button>Submit</button>
+                <button onClick={this.submitHandler}>
+                    Submit
+                </button>
             </div>
         )
     }
