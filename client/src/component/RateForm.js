@@ -29,7 +29,7 @@ export default class RateForm extends Component {
             },
         ],
         starValue: 0,
-        comment: '',
+        comment: "",
         submitted: false,
     }
 
@@ -42,6 +42,9 @@ export default class RateForm extends Component {
                     comment: this.state.comment,
                 })
             this.setState({ submitted: true })
+            setTimeout(() => {
+                this.props.toggleRateForm()
+            }, 800)
         }
         catch (e) {
             console.error("Unable to submit rating.")

@@ -36,6 +36,11 @@ export default class CamPage extends Component {
     }
 
 
+    toggleRateForm = () => {
+        this.setState({ rating: !this.state.rating })
+    }
+
+
     render() {
         return (
             <div className='cam-page-container'>
@@ -50,13 +55,17 @@ export default class CamPage extends Component {
                         surprisePath={this.state.surprisePath} />
                 </div>
 
-                <button>rate this app</button>
-
                 {this.state.rating ?
                     <div className='form-container'>
-                        <RateForm />
+                        <RateForm
+                            toggleRateForm={this.toggleRateForm} />
                     </div>
-                    : null
+                    :
+                    <button
+                        className='rateform-button'
+                        onClick={this.toggleRateForm}>
+                        Rate<br /><span>this</span><br />App
+                    </button>
                 }
 
             </div>

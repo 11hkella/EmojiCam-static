@@ -16,6 +16,35 @@
     box-shadow: 2px 2px #0c0c0c4f;
 }
 
+.rateform-button{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 100px;
+    width: 100px;
+    border-radius: 99%;
+    font-size: 30px;
+    background-color: #148b14;
+    border: 3px solid #0c0c0c;
+    box-shadow: 4px 4px #af0c0c;
+    outline:none;
+    line-height: 20px;
+
+}
+.rateform-button span{
+    font-size: 15px;
+    line-height: 10px;
+}
+
+
 .form-container{
-    margin: 30px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdfdfd70;
 }

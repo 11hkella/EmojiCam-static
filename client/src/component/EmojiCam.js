@@ -102,9 +102,6 @@ export default class EmojiCam extends Component {
         // get size for emojis and resize
         const displaySize = this.state.displaySize
 
-        console.log(detections)
-
-
         if (detections.length > 0) {
             const resizedDetections = faceapi.resizeResults(detections, displaySize)
             this.drawEmoji(resizedDetections)
@@ -115,7 +112,6 @@ export default class EmojiCam extends Component {
 
 
     drawEmoji = (detections) => {
-        console.log('sent to drawing')
         const context = this.state.canvas.getContext('2d')
         for (let i = 0; i < detections.length; i++) {
             // get position, size, and resize
