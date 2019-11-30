@@ -8,10 +8,12 @@
 }
 
 .camera-container{
-    padding: 20px 20px 30px 20px;
+    margin-top: 40px;
+    padding: 20px;
     background-color: #dfdfdf96;
     border-radius: 5px;
     display: inline-block;
+    box-shadow: 2px 2px #0c0c0c4f;
 }
 
 .form-container{

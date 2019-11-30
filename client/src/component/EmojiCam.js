@@ -15,13 +15,15 @@ export default class EmojiCam extends Component {
         sadImg: null,
         surpriseImg: null,
         loaded: false,
+        canvas: null,
+        videoEl: null,
     }
 
 
     async componentDidMount() {
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-            faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
+            // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
             faceapi.nets.faceExpressionNet.loadFromUri('/models'),
             this.loadImages()
         ]).then(() => {
@@ -73,43 +75,51 @@ export default class EmojiCam extends Component {
     })
 
 
-    mediaHandler = () => {
+    initalizeCanvas = () => {
         const videoEl = document.getElementById('video')
         const displaySize = {
-            width: videoEl.width + 200,
-            height: videoEl.height + 200,
+            width: videoEl.width,
+            height: videoEl.height,
         }
         const canvas = faceapi.createCanvas(displaySize)
         canvas.id = 'videoCanvas'
         document.getElementById('videoContainer').append(canvas)
         faceapi.matchDimensions(canvas, displaySize)
 
-        setInterval(async () => {
-            const faceDetectionOptions = new faceapi.TinyFaceDetectorOptions({ inputSize: 320 })
-            const detections = await faceapi.detectAllFaces(videoEl, faceDetectionOptions)
-                .withFaceExpressions()
+        this.setState({
+            canvas,
+            videoEl,
+            displaySize,
+        })
+    }
+
+    detectFaces = async () => {
+        // find detections
+        const faceDetectionOptions = new faceapi.TinyFaceDetectorOptions({ inputSize: 320 })
+        const detections = await faceapi.detectAllFaces(this.state.videoEl, faceDetectionOptions)
+            .withFaceExpressions()
+
+        // get size for emojis and resize
+        const displaySize = this.state.displaySize
 
 
-            if (detections) {
-                const resizedDetections = faceapi.resizeResults(detections, displaySize)
-
-                // erase board then draw new one
-                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-
-                this.drawEmoji(resizedDetections)
-            }
-        }, 800)
+        if (detections.length > 0) {
+            const resizedDetections = faceapi.resizeResults(detections, displaySize)
+            this.drawEmoji(resizedDetections)
+        } else {
+            console.log('no face detected')
+        }
     }
 
 
     drawEmoji = (detections) => {
-        const context = document.getElementById('videoCanvas').getContext('2d')
+        const context = this.state.canvas.getContext('2d')
         for (let i = 0; i < detections.length; i++) {
-            // get position and size
-            const x = detections[i].detection._box._x
-            const y = detections[i].detection._box._y
-            const width = detections[i].detection._box._width
-            const height = detections[i].detection._box.height
+            // get position, size, and resize
+            const x = detections[i].detection._box._x - 10
+            const y = detections[i].detection._box._y - 10
+            const width = detections[i].detection._box._width + 20
+            const height = detections[i].detection._box.height + 20
 
             //get dominant emotion
             let emoSort = ['']
@@ -140,6 +150,12 @@ export default class EmojiCam extends Component {
         }
     }
 
+    clearEmoji = () => {
+        const canvas = this.state.canvas
+        // erase board
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+    }
+
 
     render() {
         const videoConstraints = {
@@ -151,14 +167,20 @@ export default class EmojiCam extends Component {
         return (
             <div className='emoji-cam' id='videoContainer'>
                 {this.state.loaded ?
-                    <Webcam
-                        id='video'
-                        width={videoConstraints.width}
-                        height={videoConstraints.height}
-                        audio={false}
-                        videoConstraints={videoConstraints}
-                        onUserMedia={this.mediaHandler}
-                    ></Webcam>
+                    <div>
+                        <Webcam
+                            id='video'
+                            width={videoConstraints.width}
+                            height={videoConstraints.height}
+                            audio={false}
+                            videoConstraints={videoConstraints}
+                            onUserMedia={this.initalizeCanvas}
+                        ></Webcam>
+                        <div className='button-container'>
+                            <button onClick={this.clearEmoji}>X</button>
+                            <button onClick={this.detectFaces}>: )</button>
+                        </div>
+                    </div>
                     :
                     null}
             </div>

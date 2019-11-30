@@ -16,6 +16,7 @@ export default class CamPage extends Component {
         fearPath: null,
         sadPath: null,
         surprisePath: null,
+        rating: false,
     }
 
 
@@ -38,7 +39,7 @@ export default class CamPage extends Component {
     render() {
         return (
             <div className='cam-page-container'>
-                {/* <div className='camera-container'>
+                <div className='camera-container'>
                     <EmojiCam
                         happyPath={this.state.happyPath}
                         neutralPath={this.state.neutralPath}
@@ -47,11 +48,17 @@ export default class CamPage extends Component {
                         fearPath={this.state.fearPath}
                         sadPath={this.state.sadPath}
                         surprisePath={this.state.surprisePath} />
-                </div> */}
-
-                <div className='form-container'>
-                    <RateForm />
                 </div>
+
+                <button>rate this app</button>
+
+                {this.state.rating ?
+                    <div className='form-container'>
+                        <RateForm />
+                    </div>
+                    : null
+                }
+
             </div>
         )
     }
