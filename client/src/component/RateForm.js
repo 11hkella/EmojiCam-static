@@ -79,30 +79,31 @@ export default class RateForm extends Component {
 
     render() {
         return (
-            <div className='rateform-container'>
+            <div className='rateform'>
                 {this.state.submitted ?
-                    <p>Form Submitted</p> :
-                    null
+                    <p>Rating Submitted!</p>
+                    :
+                    <div className='rateform-container'>
+                        <div className='star-container'>
+                            {this.state.stars.map((star, i) => {
+                                return <img src={star.src}
+                                    alt='star'
+                                    id={star.count}
+                                    key={i}
+                                    onClick={this.starHandler} />
+                            })}
+                        </div>
+
+                        <textarea
+                            onChange={this.handleChange}
+                            placeholder='Comments...'
+                            name='comment' />
+
+                        <button onClick={this.submitHandler}>
+                            Submit
+                        </button>
+                    </div>
                 }
-
-                <div className='star-container'>
-                    {this.state.stars.map((star, i) => {
-                        return <img src={star.src}
-                            alt='star'
-                            id={star.count}
-                            key={i}
-                            onClick={this.starHandler} />
-                    })}
-                </div>
-
-                <textarea
-                    onChange={this.handleChange}
-                    placeholder='Comments...'
-                    name='comment' />
-
-                <button onClick={this.submitHandler}>
-                    Submit
-                </button>
             </div>
         )
     }
