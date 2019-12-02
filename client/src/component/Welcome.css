@@ -1,4 +1,21 @@
 .welcome-container{
     text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 5px solid #e7969654;
+    border-radius: 10px;
+    background-color: #ebb1b154;
+    box-shadow: 2px 2px #0c0c0c4f;
 
+}
+
+.welcome-container p{
+    margin: 70px 0;
+    line-height: 37px;
+    font-size: 24px;
+}
+
+.welcome-container h1{
+    font-size: 32px;
 }
