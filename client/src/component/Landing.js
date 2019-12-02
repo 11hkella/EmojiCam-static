@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
+import Carousel from './Carousel.js'
 import StartButton from './StartButton.js'
 import Welcome from './Welcome.js'
 
@@ -7,14 +9,16 @@ import './Landing.css'
 
 
 export default class Landing extends Component {
-
     componentDidMount() {
+        // save users geolocation and date accessed
         if ("geolocation" in navigator) {
             /* geolocation is available */
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    console.log(position.coords.latitude)
-                    console.log(position.coords.longitude)
+                    // axios.post('/api/v1/session/', {
+                    //     latitude: position.coords.latitude,
+                    //     longitude: position.coords.longitude,
+                    // })
                 },
                 function errorCallback(error) {
                     alert('ERROR(' + error.code + '): ' + error.message);
@@ -26,11 +30,14 @@ export default class Landing extends Component {
         }
     }
 
+
     render() {
         return (
             <div className='landing-container'>
-                <Welcome />
-                <StartButton />
+                <Carousel>
+                    <Welcome />
+                    <StartButton />
+                </Carousel>
             </div >
         )
     }
