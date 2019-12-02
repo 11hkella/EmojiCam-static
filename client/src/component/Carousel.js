@@ -107,13 +107,17 @@ export default class Carousel extends Component {
 
                     </CarouselContainer>
                 </Wrapper>
-                <button
+                <img
+                    src='/svg/keyboard_arrow_left-24px.svg'
+                    alt='back'
                     className='slider prev'
-                    onClick={this.prevSlide}>Back</button>
+                    onClick={this.prevSlide} />
 
-                <button
+                <img
+                    src='/svg/keyboard_arrow_right-24px.svg'
+                    alt='next'
                     className='slider next'
-                    onClick={this.nextSlide}>Next</button>
+                    onClick={this.nextSlide} />
 
             </div >
         )

@@ -1,13 +1,20 @@
 .carousel-wrapper .slider{
-    position: absolute
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    transition: transform 100ms ease-in-out;
+}
+
+.carousel-wrapper .slider:hover{
+    transform: scale(1.06, 1.06)
 }
 
 .carousel-wrapper .prev{
-    top: 50%;
+    top: 48%;
     left: 10px;
 }
 
 .carousel-wrapper .next{
-    top: 50%;
+    top: 48%;
     right: 10px;
 }

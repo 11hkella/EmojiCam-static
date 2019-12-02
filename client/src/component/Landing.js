@@ -35,8 +35,9 @@ export default class Landing extends Component {
         return (
             <div className='landing-container'>
                 <Carousel>
-                    <Welcome />
                     <StartButton />
+
+                    <Welcome />
                 </Carousel>
             </div >
         )
