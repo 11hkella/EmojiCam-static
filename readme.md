@@ -9,6 +9,6 @@ Emoji cam is a photo app that lets users take pictures of themselves with emoji 
 
 
 ## ERD
-![ERD](/assets/ERD.jpg)
 
+![ERD](/assets/ERD.jpg)
 
