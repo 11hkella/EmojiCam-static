@@ -31,6 +31,19 @@
     line-height: 20px;
 
 }
+
+.rateform-button:hover{
+    border-color: #9e9e9e;
+}
+
+.rateform-button:active{
+    background-color: #107010;
+    box-shadow: 1px 1px #af0c0c;
+    top: 13px;
+}
+
+
+
 .rateform-button span{
     font-size: 15px;
     line-height: 10px;

@@ -4,6 +4,7 @@ import axios from 'axios'
 import Carousel from './Carousel.js'
 import StartButton from './StartButton.js'
 import Welcome from './Welcome.js'
+import Instructions from './Instructions.js'
 
 import './Landing.css'
 
@@ -38,6 +39,9 @@ export default class Landing extends Component {
                     <StartButton />
 
                     <Welcome />
+
+                    <Instructions />
+
                 </Carousel>
             </div >
         )

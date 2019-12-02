@@ -7,6 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1{
+  font-weight: 200;
+  text-shadow: 1px 1px #e7e7e7;
+}
+p{
+  font-family: 'Varela Round', sans-serif;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

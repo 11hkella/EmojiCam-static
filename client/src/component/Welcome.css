@@ -3,19 +3,19 @@
     width: 80%;
     margin: 0 auto;
     padding: 20px;
-    border: 5px solid #e7969654;
+    border: 5px solid #dd9000e0;
     border-radius: 10px;
-    background-color: #ebb1b154;
-    box-shadow: 2px 2px #0c0c0c4f;
-
+    box-shadow: 3px 3px #0c0c0c4f;
+    background-color: #ffa6008c;
 }
 
 .welcome-container p{
     margin: 70px 0;
     line-height: 37px;
     font-size: 24px;
+    padding: 0 40px;
 }
 
 .welcome-container h1{
-    font-size: 32px;
+    font-size: 52px;
 }

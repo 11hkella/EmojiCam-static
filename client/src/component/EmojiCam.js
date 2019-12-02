@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Webcam from 'react-webcam'
 import * as faceapi from 'face-api.js';
+import UtilityButton from './UtilityButton.js'
 
 import './EmojiCam.css'
 
@@ -178,12 +179,17 @@ export default class EmojiCam extends Component {
                             ></Webcam>
                         </div>
                         <div className='button-container'>
-                            <button onClick={this.clearEmoji}>X</button>
-                            <button onClick={this.detectFaces}>: )</button>
+                            <UtilityButton
+                                function={this.clearEmoji}
+                                title='X' />
+                            <UtilityButton
+                                function={this.detectFaces}
+                                title=': )' />
                         </div>
                     </div>
                     :
-                    null}
+                    null
+                }
             </div>
         )
     }

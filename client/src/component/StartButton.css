@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 
 }
 .start-button-container button{
@@ -10,8 +11,8 @@
     outline: none;
     border-radius: 70px;
     font-weight: 800;
-    border: 5px solid #f3f3f3;
-    color: #f3f3f3;
+    border: 5px solid #ebebeb;
+    color: #ebebeb;
     text-shadow: 2px 2px #0c0c0c;
     box-shadow: 3px 3px #0c0c0c;
 
@@ -24,8 +25,11 @@
     animation: rainbow 18s ease infinite;
 }
 .start-button-container button:hover{
-    border: 5px solid #21ff64;
-    color: #21ff64;
+    /* border: 5px solid #ebebeb;
+    color: #ebebeb; */
+    border-right: 5px solid orange;
+    border-left: 5px solid orange;
+    color: orange;
 }
 
 @-webkit-keyframes rainbow {

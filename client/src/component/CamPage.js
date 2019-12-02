@@ -61,12 +61,13 @@ export default class CamPage extends Component {
                             toggleRateForm={this.toggleRateForm} />
                     </div>
                     :
-                    <button
-                        className='rateform-button'
-                        onClick={this.toggleRateForm}>
-                        Rate<br /><span>this</span><br />App
-                    </button>
+                    null
                 }
+                <button
+                    className='rateform-button'
+                    onClick={this.toggleRateForm}>
+                    Rate<br /><span>this</span><br />App
+                </button>
 
             </div>
         )
