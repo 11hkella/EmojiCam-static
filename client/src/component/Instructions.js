@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 
 import './Instructions.css'
 
 export default class Instructions extends Component {
 
     state = {
-        expressionKeys: [],
-        expressionSrc: [],
-    }
-
-
-    async componentDidMount() {
-        const imageSetData = await axios.get('/api/v1/image_set/')
-        const expressionKeys = Object.keys(imageSetData.data[0])
-        const expressionSrc = Object.values(imageSetData.data[0])
-
-        this.setState({ expressionKeys, expressionSrc })
+        expressionKeys: ['happy', 'sad', 'angry', 'disgusted', 'surprised', 'neutral', 'fearful'],
+        expressionSrc: [
+            'images/cool.png',
+            'images/crying.png',
+            'images/angry.png',
+            'images/disgust.png',
+            'images/surprised.png',
+            'images/neutral.png',
+            'images/fear.png',
+        ],
     }
 
 

@@ -27,8 +27,7 @@
 .start-button-container button:hover{
     /* border: 5px solid #ebebeb;
     color: #ebebeb; */
-    border-right: 5px solid orange;
-    border-left: 5px solid orange;
+    border: 5px solid orange;
     color: orange;
 }
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 
 import EmojiCam from './EmojiCam.js'
 import RateForm from './RateForm.js'
@@ -9,30 +8,14 @@ import './CamPage.css'
 
 export default class CamPage extends Component {
     state = {
-        happyPath: null,
-        neutralPath: null,
-        angryPath: null,
-        disgustPath: null,
-        fearPath: null,
-        sadPath: null,
-        surprisePath: null,
+        happyPath: 'images/cool.png',
+        neutralPath: 'images/neutral.png',
+        angryPath: 'images/angry.png',
+        disgustPath: 'images/disgust.png',
+        fearPath: 'images/fear.png',
+        sadPath: 'images/crying.png',
+        surprisePath: 'images/surprised.png',
         rating: false,
-    }
-
-
-    async componentDidMount() {
-        const imageSetObject = await axios.get('/api/v1/image_set')
-        const imageSet = imageSetObject.data[0]
-        // console.log(imageSet)
-        this.setState({
-            happyPath: imageSet.happy,
-            neutralPath: imageSet.neutral,
-            angryPath: imageSet.angry,
-            disgustPath: imageSet.disgust,
-            fearPath: imageSet.fear,
-            sadPath: imageSet.sad,
-            surprisePath: imageSet.surprise,
-        })
     }
 
 
