@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import EmojiCam from './EmojiCam.js'
-import RateForm from './RateForm.js'
+import EmojiCam from './EmojiCam.js.js'
+import RateForm from './RateForm.js.js'
 
 import './CamPage.css'
 
