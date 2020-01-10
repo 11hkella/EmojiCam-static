@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import CamPage from './component/CamPage.js.js'
-import Landing from './component/Landing.js.js'
+import CamPage from './component/CamPage.js'
+import Landing from './component/Landing.js'
 
 import './App.css';
 

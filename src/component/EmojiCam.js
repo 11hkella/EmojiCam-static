@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Webcam from 'react-webcam'
 import * as faceapi from 'face-api.js';
-import UtilityButton from './UtilityButton.js.js'
+import UtilityButton from './UtilityButton.js'
 
 import './EmojiCam.css'
 

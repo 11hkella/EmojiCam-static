@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-import Carousel from './Carousel.js.js'
-import StartButton from './StartButton.js.js'
-import Welcome from './Welcome.js.js'
-import Instructions from './Instructions.js.js'
+import Carousel from './Carousel.js'
+import StartButton from './StartButton.js'
+import Welcome from './Welcome.js'
+import Instructions from './Instructions.js'
 
 import './Landing.css'
 
