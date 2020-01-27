@@ -21,11 +21,10 @@ export default class EmojiCam extends Component {
     }
 
 
-    async componentDidMount() {
-        const modelsRoute = process.env.PUBLIC_URL + '/models'
+    componentDidMount() {
+        const modelsRoute = process.env.MODELS_URL
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri(modelsRoute),
-            // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
             faceapi.nets.faceExpressionNet.loadFromUri(modelsRoute),
             this.loadImages()
         ]).then(() => {
