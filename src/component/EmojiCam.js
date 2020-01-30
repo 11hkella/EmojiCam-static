@@ -22,7 +22,8 @@ export default class EmojiCam extends Component {
 
 
     componentDidMount() {
-        const modelsRoute = process.env.MODELS_URL
+        const modelsRoute = 'https://emoji-cam.s3.amazonaws.com/models/'
+        console.log(modelsRoute)
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri(modelsRoute),
             faceapi.nets.faceExpressionNet.loadFromUri(modelsRoute),
